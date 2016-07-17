@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Lexer` struct in crate `gluon_parser`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Lexer">
+
+    <title>gluon_parser::lexer::Lexer - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>gluon_parser</a>::<wbr><a href='index.html'>lexer</a></p><script>window.sidebarCurrent = {name: 'Lexer', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>gluon_parser</a>::<wbr><a href='index.html'>lexer</a>::<wbr><a class='struct' href=''>Lexer</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-417' class='srclink' href='../../src/gluon_parser/parser/src/lexer.rs.html#247-257' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Lexer&lt;'a, I, F&gt; <span class='where'>where I: <a class='trait' href='../../combine/primitives/trait.Stream.html' title='combine::primitives::Stream'>Stream</a>&lt;Item=<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.char.html'>char</a>&gt;, F: <a class='trait' href='../../gluon_base/ast/trait.IdentEnv.html' title='gluon_base::ast::IdentEnv'>IdentEnv</a></span> {
+    pub env: <a class='struct' href='../../combine_language/struct.LanguageEnv.html' title='combine_language::LanguageEnv'>LanguageEnv</a>&lt;'a, <a class='struct' href='../../combine/primitives/struct.State.html' title='combine::primitives::State'>State</a>&lt;I&gt;&gt;,
+    pub make_ident: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/core/cell/struct.RefCell.html' title='core::cell::RefCell'>RefCell</a>&lt;F&gt;&gt;,
+    pub input: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../combine/primitives/struct.State.html' title='combine::primitives::State'>State</a>&lt;I&gt;&gt;,
+    pub unprocessed_tokens: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../gluon_parser/lexer/struct.PToken.html' title='gluon_parser::lexer::PToken'>PToken</a>&lt;F::Ident&gt;&gt;,
+    pub indent_levels: <a class='struct' href='../../gluon_parser/lexer/struct.Contexts.html' title='gluon_parser::lexer::Contexts'>Contexts</a>,
+    // some fields omitted
+}</pre><h2 class='fields'>Fields</h2>
+<table><tr class='stab '>
+                             <td id='structfield.env'><code>env</code></td><td></td></tr><tr class='stab '>
+                             <td id='structfield.make_ident'><code>make_ident</code></td><td></td></tr><tr class='stab '>
+                             <td id='structfield.input'><code>input</code></td><td></td></tr><tr class='stab '>
+                             <td id='structfield.unprocessed_tokens'><code>unprocessed_tokens</code></td><td></td></tr><tr class='stab '>
+                             <td id='structfield.indent_levels'><code>indent_levels</code></td><td></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'a, 's, I, Id, F&gt; <a class='struct' href='../../gluon_parser/lexer/struct.Lexer.html' title='gluon_parser::lexer::Lexer'>Lexer</a>&lt;'a, I, F&gt; <span class='where'>where I: <a class='trait' href='../../combine/primitives/trait.Stream.html' title='combine::primitives::Stream'>Stream</a>&lt;Item=<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.char.html'>char</a>&gt; + 'a, F: <a class='trait' href='../../gluon_base/ast/trait.IdentEnv.html' title='gluon_base::ast::IdentEnv'>IdentEnv</a>&lt;Ident=Id&gt;, Id: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a>, I::Range: <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> + 's</span></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-427' class='srclink' href='../../src/gluon_parser/parser/src/lexer.rs.html#259-571' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(input: I, make_ident: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/core/cell/struct.RefCell.html' title='core::cell::RefCell'>RefCell</a>&lt;F&gt;&gt;) -&gt; <a class='struct' href='../../gluon_parser/lexer/struct.Lexer.html' title='gluon_parser::lexer::Lexer'>Lexer</a>&lt;'a, I, F&gt;</code></h4>
+<h4 id='method.next_token' class='method'><code>fn <a href='#method.next_token' class='fnname'>next_token</a>(&amp;mut self) -&gt; <a class='struct' href='../../gluon_parser/lexer/struct.PToken.html' title='gluon_parser::lexer::PToken'>PToken</a>&lt;Id&gt;</code></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'a, I, Id, F&gt; <a class='trait' href='../../combine/primitives/trait.StreamOnce.html' title='combine::primitives::StreamOnce'>StreamOnce</a> for <a class='struct' href='../../gluon_parser/lexer/struct.Lexer.html' title='gluon_parser::lexer::Lexer'>Lexer</a>&lt;'a, I, F&gt; <span class='where'>where I: <a class='trait' href='../../combine/primitives/trait.Stream.html' title='combine::primitives::Stream'>Stream</a>&lt;Item=<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.char.html'>char</a>&gt; + 'a, F: <a class='trait' href='../../gluon_base/ast/trait.IdentEnv.html' title='gluon_base::ast::IdentEnv'>IdentEnv</a>&lt;Ident=Id&gt;, Id: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a>, I::Range: <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a></span></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-652' class='srclink' href='../../src/gluon_parser/parser/src/lexer.rs.html#841-875' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Item' class='type'><code>type <a href='../../combine/primitives/trait.StreamOnce.html#associatedtype.Item' class='type'>Item</a> = <a class='enum' href='../../gluon_parser/lexer/enum.Token.html' title='gluon_parser::lexer::Token'>Token</a>&lt;Id&gt;</code></h4>
+<div class='docblock'><p>The type of items which is yielded from this stream</p>
+</div><h4 id='associatedtype.Range' class='type'><code>type <a href='../../combine/primitives/trait.StreamOnce.html#associatedtype.Range' class='type'>Range</a> = <a class='enum' href='../../gluon_parser/lexer/enum.Token.html' title='gluon_parser::lexer::Token'>Token</a>&lt;Id&gt;</code></h4>
+<div class='docblock'><p>The type of a range of items yielded from this stream. Types which do not a have a way of yielding ranges of items should just use the Self::Item for this type <a href="../../combine/primitives/trait.StreamOnce.html#associatedtype.Range">Read more</a></p>
+</div><h4 id='associatedtype.Position' class='type'><code>type <a href='../../combine/primitives/trait.StreamOnce.html#associatedtype.Position' class='type'>Position</a> = <a class='struct' href='../../combine/primitives/struct.SourcePosition.html' title='combine::primitives::SourcePosition'>SourcePosition</a></code></h4>
+<div class='docblock'><p>Type which represents the position in a stream. Ord is required to allow parsers to determine which of two positions are further ahead. <a href="../../combine/primitives/trait.StreamOnce.html#associatedtype.Position">Read more</a></p>
+</div><h4 id='method.uncons' class='method'><code>fn <a href='../../combine/primitives/trait.StreamOnce.html#tymethod.uncons' class='fnname'>uncons</a>(&amp;mut self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='enum' href='../../gluon_parser/lexer/enum.Token.html' title='gluon_parser::lexer::Token'>Token</a>&lt;Id&gt;, <a class='type' href='../../gluon_parser/lexer/type.Error.html' title='gluon_parser::lexer::Error'>Error</a>&lt;Id&gt;&gt;</code></h4>
+<div class='docblock'><p>Takes a stream and removes its first item, yielding the item and the rest of the elements Returns <code>Err</code> if no element could be retrieved <a href="../../combine/primitives/trait.StreamOnce.html#tymethod.uncons">Read more</a></p>
+</div><h4 id='method.position' class='method'><code>fn <a href='../../combine/primitives/trait.StreamOnce.html#tymethod.position' class='fnname'>position</a>(&amp;self) -&gt; Self::<a class='trait' href='../../combine/primitives/trait.StreamOnce.html' title='combine::primitives::StreamOnce'>Position</a></code></h4>
+<div class='docblock'><p>Returns the current position of the stream</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "gluon_parser";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

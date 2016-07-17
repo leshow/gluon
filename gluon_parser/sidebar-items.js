@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["parse_expr","Parses a gluon expression"],["parse_tc","Parses a string to an AST which contains has identifiers which also contains a field for storing type information. The type will just be a dummy value until the AST has passed typechecking"]],"mod":[["lexer",""]],"type":[["Error",""]]});
