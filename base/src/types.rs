@@ -1,4 +1,5 @@
 //! Module containing types representing `gluon`'s type system
+use std::borrow::ToOwned;
 use std::collections::HashMap;
 use std::fmt;
 use std::ops::Deref;
@@ -493,13 +494,14 @@ impl<Id, T> Type<Id, T>
         })
     }
 
-    pub fn function(args: Vec<T>, ret: T) -> T where T: Clone {
+    pub fn function(args: Vec<T>, ret: T) -> T
+        where T: Clone
+    {
         let function: T = Type::builtin(BuiltinType::Function);
         args.into_iter()
             .rev()
-            .fold(ret, |body, arg| {
-                Type::app(function.clone(), vec![arg, body])
-            })
+            .fold(ret,
+                  |body, arg| Type::app(function.clone(), vec![arg, body]))
     }
 
     pub fn generic(typ: Generic<Id>) -> T {
@@ -737,7 +739,10 @@ impl<'a, I, T, E> fmt::Display for DisplayType<'a, I, T, E>
                         if p >= Prec::Function {
                             write!(f, "({} -> {})", top(self.env, arg), top(self.env, ret))
                         } else {
-                            write!(f, "{} -> {}", dt(self.env, Prec::Function, arg), top(self.env, ret))
+                            write!(f,
+                                   "{} -> {}",
+                                   dt(self.env, Prec::Function, arg),
+                                   top(self.env, ret))
                         }
                     }
                     None => {
@@ -908,20 +913,20 @@ pub fn walk_move_type<F, I, T>(typ: T, f: &mut F) -> T
 
 /// Merges two values using `f` if either or both them is `Some(..)`.
 /// If both are `None`, `None` is returned.
-pub fn merge<F, A, B, R>(a_original: &A,
-                         a: Option<A>,
-                         b_original: &B,
-                         b: Option<B>,
-                         f: F)
-                         -> Option<R>
-    where A: Clone,
-          B: Clone,
-          F: FnOnce(A, B) -> R
+pub fn merge<F, A: ?Sized, B: ?Sized, R>(a_original: &A,
+                                         a: Option<A::Owned>,
+                                         b_original: &B,
+                                         b: Option<B::Owned>,
+                                         f: F)
+                                         -> Option<R>
+    where A: ToOwned,
+          B: ToOwned,
+          F: FnOnce(A::Owned, B::Owned) -> R
 {
     match (a, b) {
         (Some(a), Some(b)) => Some(f(a, b)),
-        (Some(a), None) => Some(f(a, b_original.clone())),
-        (None, Some(b)) => Some(f(a_original.clone(), b)),
+        (Some(a), None) => Some(f(a, b_original.to_owned())),
+        (None, Some(b)) => Some(f(a_original.to_owned(), b)),
         (None, None) => None,
     }
 }
