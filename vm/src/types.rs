@@ -21,9 +21,12 @@ pub enum Instruction {
     PushByte(u8),
     /// Push a float to the stack
     PushFloat(f64),
-    /// Push a string to the stack by loading the value at `index` in the currently executing
+    /// Push a string to the stack by loading the string at `index` in the currently executing
     /// function
     PushString(VMIndex),
+    /// Push a variable to the stack by loading the upvariable at `index` from the currently
+    /// executing function
+    PushUpVar(VMIndex),
     /// Push the value at `index`
     Push(VMIndex),
     /// Push the value at `index`
@@ -82,7 +85,6 @@ pub enum Instruction {
     },
     /// Fills the previously allocated closure with `n` upvariables.
     CloseClosure(VMIndex),
-    PushUpVar(VMIndex),
 
     AddInt,
     SubtractInt,
