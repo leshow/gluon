@@ -19,25 +19,21 @@ pub enum TypeError<I> {
     FieldMismatch(I, I),
 }
 
-pub fn fmt_error<I>(error: &Error<I>, f: &mut fmt::Formatter) -> fmt::Result
+impl<I> fmt::Display for TypeError<I>
     where I: fmt::Display + AsRef<str>
 {
-    use unify::Error::*;
-    match *error {
-        TypeMismatch(ref l, ref r) => {
-            write!(f, "Types do not match:\n\tExpected: {}\n\tFound: {}", l, r)
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match *self {
+            TypeError::FieldMismatch(ref l, ref r) => {
+                write!(f,
+                       "Field names in record do not match.\n\tExpected: {}\n\tFound: {}",
+                       l,
+                       r)
+            }
+            TypeError::UndefinedType(ref id) => write!(f, "Type `{}` does not exist.", id),
         }
-        Other(TypeError::FieldMismatch(ref l, ref r)) => {
-            write!(f,
-                   "Field names in record do not match.\n\tExpected: {}\n\tFound: {}",
-                   l,
-                   r)
-        }
-        Occurs(ref var, ref typ) => write!(f, "Variable `{}` occurs in `{}`.", var, typ),
-        Other(TypeError::UndefinedType(ref id)) => write!(f, "Type `{}` does not exist.", id),
     }
 }
-
 
 pub type UnifierState<'a, 's, U> = unify::UnifierState<'s, &'a (TypeEnv + 'a), TcType, U>;
 
